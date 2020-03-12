@@ -23,6 +23,7 @@ function preload (){
     this.load.image('star', '../assets/star.png');
     this.load.image('pared', '../assets/pared.png');
     this.load.spritesheet('p1', '../assets/amarillo.png', { frameWidth: 15, frameHeight: 15 });
+    this.load.image('bombs', '../assets/bomb.png');
 
 }
 
@@ -84,7 +85,20 @@ function create (){
     
     function collectStar (player, star){
         star.disableBody(true, true);
+
+        //Sumar puntos
+        score += 1;
+        scoreText.setText('Estrellas: ' + score);
+
+        if (stars.countActive(true) === 0)    {
+        
+        }
     }
+
+    //Marcadores
+    var score = 0;
+    var scoreText;
+    scoreText = this.add.text(16, 16, 'Estrellas: 0', { fontSize: '32px', fill: '#255' });
 }
 
 function update (){
