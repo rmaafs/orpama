@@ -22,12 +22,17 @@ function preload (){
     this.load.image('sky', '../assets/sky.png');
     this.load.image('star', '../assets/star.png');
     this.load.image('pared', '../assets/pared.png');
-    this.load.spritesheet('p1', '../assets/amarillo.png', { frameWidth: 15, frameHeight: 15 });
+    this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 15, frameHeight: 15 });
+    this.load.spritesheet('p2', '../assets/azul.png', { frameWidth: 15, frameHeight: 15 });
     this.load.image('bombs', '../assets/bomb.png');
 
 }
 
 function create (){
+    var personaje = 'p1';b = 10;
+    if(b === 0){
+        personaje = 'p2';
+    }
     this.add.image(400, 300, 'sky');//Poner el fondo
 
     //Poner las plataformas en la pantalla
@@ -38,28 +43,28 @@ function create (){
     platforms.create(750, 120, 'pared');
 
     //Poner el jugador en pantalla
-    player = this.physics.add.sprite(20, 20, 'p1');
+    player = this.physics.add.sprite(20, 20, personaje);
     player.setBounce(.75);
     player.setCollideWorldBounds(true);
     
     //Crea las animaciones del pacman
     this.anims.create({
         key: 'left',
-        frames: this.anims.generateFrameNumbers('p1', { start: 2, end: 3 }),
+        frames: this.anims.generateFrameNumbers(personaje, { start: 2, end: 3 }),
         frameRate: 10,
         repeat: -1
     });
     
     this.anims.create({
         key: 'turn',
-        frames: this.anims.generateFrameNumbers('p1', { start: 6, end: 7 }),
+        frames: this.anims.generateFrameNumbers(personaje, { start: 6, end: 7 }),
         frameRate: 10,
         repeat: -1
     });
     
     this.anims.create({
         key: 'right',
-        frames: this.anims.generateFrameNumbers('p1', { start: 0, end: 1 }),
+        frames: this.anims.generateFrameNumbers(personaje, { start: 0, end: 1 }),
         frameRate: 10,
         repeat: -1
     });
