@@ -18,54 +18,62 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+
 function preload (){
     this.load.image('sky', '../assets/sky.png');
-    this.load.image('star', '../assets/star.png');
+    this.load.image('star', '../assets/moneda.png');
     this.load.image('pared', '../assets/pared.png');
-    this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 15, frameHeight: 15 });
-    this.load.spritesheet('p2', '../assets/azul.png', { frameWidth: 15, frameHeight: 15 });
+    this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.spritesheet('p2', '../assets/rojo.png', { frameWidth: 32, frameHeight: 32 });
     this.load.image('bombs', '../assets/bomb.png');
 
 }
 
 function create (){
-    var personaje = 'p1';b = 10;
+    var personaje = 'p1';b = 7;
+    var p = 32;
+
     if(b === 0){
         personaje = 'p2';
     }
-    this.add.image(400, 300, 'sky');//Poner el fondo
 
+    //Poner el fondo
+    this.add.image(400, 300, 'sky');
+    
     //Poner las plataformas en la pantalla
     platforms = this.physics.add.staticGroup();
+    platforms.create(500, 0, 'pared').setScale(2).refreshBody();
     platforms.create(700, 575, 'pared').setScale(2).refreshBody();
-    platforms.create(600, 400, 'pared');
-    platforms.create(50, 250, 'pared');
-    platforms.create(750, 120, 'pared');
+    platforms.create(450, 450, 'pared');
+    platforms.create(900, 450, 'pared');
+    platforms.create(150, 325, 'pared');
+    platforms.create(1200, 325, 'pared');
+    platforms.create(700, 200, 'pared');
 
     //Poner el jugador en pantalla
-    player = this.physics.add.sprite(20, 20, personaje);
-    player.setBounce(.75);
+    player = this.physics.add.sprite(p, p, personaje);
+    player.setBounce(.65);
     player.setCollideWorldBounds(true);
     
     //Crea las animaciones del pacman
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers(personaje, { start: 2, end: 3 }),
-        frameRate: 10,
+        frameRate: p,
         repeat: -1
     });
     
     this.anims.create({
         key: 'turn',
-        frames: this.anims.generateFrameNumbers(personaje, { start: 6, end: 7 }),
-        frameRate: 10,
+        frames: this.anims.generateFrameNumbers(personaje, { start: 4, end: 5 }),
+        frameRate: p,
         repeat: -1
     });
     
     this.anims.create({
         key: 'right',
         frames: this.anims.generateFrameNumbers(personaje, { start: 0, end: 1 }),
-        frameRate: 10,
+        frameRate: p,
         repeat: -1
     });
 
@@ -94,10 +102,6 @@ function create (){
         //Sumar puntos
         score += 1;
         scoreText.setText('Estrellas: ' + score);
-
-        if (stars.countActive(true) === 0)    {
-        
-        }
     }
 
     //Marcadores
