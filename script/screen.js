@@ -111,11 +111,10 @@ function create (){
 
         if (stars.countActive(true) === 0){
             stars.children.iterate(function (child) {
-                child.enableBody(true, child.x, 0, true, true);
+                child.enableBody(true, child.x, Phaser.Math.Between(50, 550), true, true);
             });
         }else if(score % 5 === 0){
-            var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-            var bomb = bombs.create(x, 16, 'bomb');
+            var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 550), 'bomb');            
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
             bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
