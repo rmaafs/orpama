@@ -23,7 +23,7 @@ function preload (){
     this.load.image('sky', '../assets/sky.png');
     this.load.image('star', '../assets/moneda.png');
     this.load.image('pared', '../assets/pared.png');
-    this.load.image('bomb', '../assets/moneda.png');
+    this.load.image('bomb', '../assets/cereza.png');
     this.load.image('pared2', '../assets/pared2.png');
     this.load.image('marcador', '../assets/marcador.png');
     this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 32, frameHeight: 32 });
@@ -109,13 +109,14 @@ function create (){
         datos += v1;
         datos += "      Puntos:";
         datos += score;
+        datos += "      Nivel: Acarde";
         scoreText.setText(datos);
 
         if (stars.countActive(true) === 0){
             stars.children.iterate(function (child) {
                 child.enableBody(true, child.x, 50, true, true);
             });
-        }else if(score % 5 === 0){
+        }else if(score % 4 === 0){
             var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 550), 'bomb');
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
@@ -129,18 +130,28 @@ function create (){
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
     function hitBomb (player, bomb){
-        //v1--;
-        //console.log(v1);
-        this.physics.pause();
-        player.setTint(0xff0000);
-        player.anims.play('turn');
-        gameOver = true;
-    }
+        v1--;
+        datos = "Jugador: ";
+        datos += p1;
+        datos += "      Vidas: "
+        datos += v1;
+        datos += "      Puntos:";
+        datos += score;
+        datos += "      Nivel: Acarde"
+        scoreText.setText(datos);
+        if(v1 == 0){
+            this.physics.pause();
+            player.setTint(0xff0000);
+            player.anims.play('turn');
+            gameOver = true;
+        }else{
+            bomb.disableBody(true, true);
+        }
+   }
 
     p1 = "Paco";
     v1 = 3;
     score = 0;    
-
     //Marcadores
     datos = "Jugador: ";
     datos += p1;
@@ -148,7 +159,7 @@ function create (){
     datos += v1;
     datos += "      Puntos:";
     datos += score;
-
+    datos += "      Nivel: Acarde"
     var scoreText;
     scoreText = this.add.text(16, 16, datos, { fontSize: '32px', fill: '#ffffff' });
 }

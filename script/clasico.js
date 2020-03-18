@@ -23,7 +23,7 @@ function preload (){
     this.load.image('sky', '../assets/sky.png');
     this.load.image('star', '../assets/moneda.png');
     this.load.image('pared', '../assets/pared.png');
-    this.load.image('bomb', '../assets/moneda.png');
+    this.load.image('bomb', '../assets/cereza.png');
     this.load.image('marcador', '../assets/marcador.png');
     this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('p2', '../assets/rojo.png', { frameWidth: 32, frameHeight: 32 });
@@ -32,8 +32,6 @@ function preload (){
 function create (){
     var personaje = 'p1';b = 0;
     var p = 32;
-    //Phaser.Keyboard.SPACEBAR;
-    //teclas = game.input.keyboard.createCursorKeys();
 
     if(b === 0){
         personaje = 'p2';
@@ -113,7 +111,7 @@ function create (){
                 var x = (player.y < 400) ? 500 : 100;
                 child.enableBody(true, child.x, x, true, true);
             });
-        }else if(score % 5 === 0){
+        }else if(score % 4 === 0){
             var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 500), 'bomb');            
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
