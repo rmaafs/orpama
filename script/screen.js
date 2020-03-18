@@ -23,10 +23,9 @@ function preload (){
     this.load.image('sky', '../assets/sky.png');
     this.load.image('star', '../assets/moneda.png');
     this.load.image('pared', '../assets/pared.png');
+    this.load.image('marcador', '../assets/marcador.png');
     this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('p2', '../assets/rojo.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.image('bombs', '../assets/bomb.png');
-
 }
 
 function create (){
@@ -42,7 +41,7 @@ function create (){
     
     //Poner las plataformas en la pantalla
     platforms = this.physics.add.staticGroup();
-    platforms.create(500, 0, 'pared').setScale(2).refreshBody();
+    platforms.create(0, 0, 'marcador').setScale(2).refreshBody();
     platforms.create(700, 575, 'pared').setScale(2).refreshBody();
     platforms.create(450, 450, 'pared');
     platforms.create(900, 450, 'pared');
@@ -51,7 +50,7 @@ function create (){
     platforms.create(700, 200, 'pared');
 
     //Poner el jugador en pantalla
-    player = this.physics.add.sprite(p, p, personaje);
+    player = this.physics.add.sprite(0, 500, personaje);
     player.setBounce(.65);
     player.setCollideWorldBounds(true);
     
@@ -100,14 +99,29 @@ function create (){
         star.disableBody(true, true);
 
         //Sumar puntos
-        score += 1;
-        scoreText.setText('Estrellas: ' + score);
+        score++;
+        datos = "Jugador: ";
+        datos += p1;
+        datos += "      Vidas: "
+        datos += v1;
+        datos += "      Puntos:";
+        datos += score;
+        scoreText.setText(datos);
     }
+    p1 = "Paco";
+    v1 = 3;
+    score = 0;    
 
     //Marcadores
-    var score = 0;
+    datos = "Jugador: ";
+    datos += p1;
+    datos += "      Vidas: "
+    datos += v1;
+    datos += "      Puntos:";
+    datos += score;
+
     var scoreText;
-    scoreText = this.add.text(16, 16, 'Estrellas: 0', { fontSize: '32px', fill: '#255' });
+    scoreText = this.add.text(16, 16, datos, { fontSize: '32px', fill: '#ffffff' });
 }
 
 function update (){
@@ -127,5 +141,4 @@ function update (){
     if (cursors.up.isDown && player.body.touching.down){
         player.setVelocityY(-430);
     }
-    
 }
