@@ -23,6 +23,7 @@ function preload (){
     this.load.image('sky', '../assets/sky.png');
     this.load.image('star', '../assets/moneda.png');
     this.load.image('pared', '../assets/pared.png');
+    this.load.image('bomb', '../assets/moneda.png');
     this.load.image('pared2', '../assets/pared2.png');
     this.load.image('marcador', '../assets/marcador.png');
     this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 32, frameHeight: 32 });
@@ -114,7 +115,7 @@ function create (){
             stars.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-
+        }else if(score % 5 === 0){
             var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
             var bomb = bombs.create(x, 16, 'bomb');
             bomb.setBounce(1);
