@@ -17,7 +17,7 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-
+var teclas;
 
 function preload (){
     this.load.image('sky', '../assets/sky.png');
@@ -30,8 +30,10 @@ function preload (){
 }
 
 function create (){
-    var personaje = 'p1';b = 7;
+    var personaje = 'p1';b = 0;
     var p = 32;
+    //Phaser.Keyboard.SPACEBAR;
+    //teclas = game.input.keyboard.createCursorKeys();
 
     if(b === 0){
         personaje = 'p2';
@@ -87,10 +89,6 @@ function create (){
         repeat: 19,
         setXY: { x: 12, y: 0, stepX: 70 }
     });
-    
-    stars.children.iterate(function (child) {
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    });
 
     //Configura las colisiones de las estrellas
     this.physics.add.collider(stars, platforms);
@@ -107,14 +105,16 @@ function create (){
         datos += v1;
         datos += "      Puntos:";
         datos += score;
+        datos += "      Nivel: Clasico"
         scoreText.setText(datos);
 
         if (stars.countActive(true) === 0){
             stars.children.iterate(function (child) {
-                child.enableBody(true, child.x, Phaser.Math.Between(50, 550), true, true);
+                var x = (player.y < 400) ? 500 : 100;
+                child.enableBody(true, child.x, x, true, true);
             });
         }else if(score % 5 === 0){
-            var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 550), 'bomb');            
+            var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 500), 'bomb');            
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
             bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
@@ -127,18 +127,28 @@ function create (){
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
     function hitBomb (player, bomb){
-        //v1--;
-        //console.log(v1);
-        this.physics.pause();
-        player.setTint(0xff0000);
-        player.anims.play('turn');
-        gameOver = true;
+        v1--;
+        datos = "Jugador: ";
+        datos += p1;
+        datos += "      Vidas: "
+        datos += v1;
+        datos += "      Puntos:";
+        datos += score;
+        datos += "      Nivel: Clasico"
+        scoreText.setText(datos);
+        if(v1 == 0){
+            this.physics.pause();
+            player.setTint(0xff0000);
+            player.anims.play('turn');
+            gameOver = true;
+        }else{
+            bomb.disableBody(true, true);
+        }
     }
 
     p1 = "Paco";
     v1 = 3;
     score = 0;    
-
     //Marcadores
     datos = "Jugador: ";
     datos += p1;
@@ -146,7 +156,7 @@ function create (){
     datos += v1;
     datos += "      Puntos:";
     datos += score;
-
+    datos += "      Nivel: Clasico"
     var scoreText;
     scoreText = this.add.text(16, 16, datos, { fontSize: '32px', fill: '#ffffff' });
 }

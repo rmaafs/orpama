@@ -113,7 +113,7 @@ function create (){
 
         if (stars.countActive(true) === 0){
             stars.children.iterate(function (child) {
-                child.enableBody(true, child.x, Phaser.Math.Between(50, 550), true, true);
+                child.enableBody(true, child.x, 50, true, true);
             });
         }else if(score % 5 === 0){
             var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 550), 'bomb');
