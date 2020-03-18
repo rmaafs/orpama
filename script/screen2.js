@@ -92,12 +92,6 @@ function create (){
         repeat: 19,
         setXY: { x: 12, y: 0, stepX: 70 }
     });
-    
-    /*stars.children.iterate(function (child) {
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    });*/
-
-    
 
     //Configura las colisiones de las estrellas
     this.physics.add.collider(stars, platforms);
