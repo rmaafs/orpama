@@ -47,6 +47,9 @@ function create (){
 
     var personaje = 'p1';b = 7;
     var p = 32;
+    p1 = "Paco";
+    v1 = 3;
+    score = 0;
 
     if(b === 0){
         personaje = 'p2';
@@ -131,9 +134,10 @@ function create (){
         if (stars.countActive(true) === 0){
             this.death.play();
             stars.children.iterate(function (child) {
-                child.enableBody(true, child.x, 50, true, true);
+                var x = (player.y < 400) ? 300 : 50;
+                child.enableBody(true, child.x, x, true, true);
             });
-        }else if(score % 4 === 0){
+        }else if(score % 5 === 0){
             this.comerFantasma.play();
             var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 550), 'bomb');
             bomb.setBounce(1);
@@ -149,7 +153,6 @@ function create (){
 
     function hitBomb (player, bomb){
         this.comerFruta.play();
-
         v1--;
         datos = "Jugador: ";
         datos += p1;
@@ -167,11 +170,7 @@ function create (){
         }else{
             bomb.disableBody(true, true);
         }
-   }
-
-    p1 = "Paco";
-    v1 = 3;
-    score = 0;    
+   }    
     //Marcadores
     datos = "Jugador: ";
     datos += p1;
@@ -183,20 +182,6 @@ function create (){
     var scoreText;
     scoreText = this.add.text(16, 16, datos, { fontSize: '32px', fill: '#ffffff' });
 
-    //Finalizar partida
-    this.input.keyboard.on('keyup_SPACE', (event)=>{
-        console.log("espacio");
-    });
-
-    //Pausa
-    this.input.keyboard.on('keyup_ESC', (event)=>{
-        this.game.gamePaused();
-    });
-
-    //Activar/Desactivar sonido
-    this.input.keyboard.on('keyup_BACKSPACE', (event)=>{
-        console.log("atras");
-    });
 }
 
 function update (){
@@ -216,4 +201,22 @@ function update (){
     if (cursors.up.isDown && player.body.touching.down){
         player.setVelocityY(-430);
     }
+
+    //Finalizar partida
+    this.input.keyboard.on('keyup_SPACE', (event)=>{
+        console.log("espacio");
+    });
+
+    //Pausa
+    this.input.keyboard.on('keyup_ESC', (event)=>{
+        this.physics.pause();
+        player.setTint(0xff0000);
+        player.anims.play('turn');
+        gameOver = true;
+    });
+
+    //Activar/Desactivar sonido
+    this.input.keyboard.on('keyup_BACKSPACE', (event)=>{
+        console.log("atras");
+    });
 }

@@ -46,7 +46,10 @@ function create (){
 
     var personaje = 'p1';b = 0;
     var p = 32;
-
+    p1 = "Paco";
+    v1 = 3;
+    score = 0;
+    
     if(b === 0){
         personaje = 'p2';
     }
@@ -163,10 +166,7 @@ function create (){
             bomb.disableBody(true, true);
         }
     }
-
-    p1 = "Paco";
-    v1 = 3;
-    score = 0;    
+    
     //Marcadores
     datos = "Jugador: ";
     datos += p1;
@@ -177,21 +177,6 @@ function create (){
     datos += "      Nivel: Clasico"
     var scoreText;
     scoreText = this.add.text(16, 16, datos, { fontSize: '32px', fill: '#ffffff' });
-
-    //Finalizar partida
-    this.input.keyboard.on('keyup_SPACE', (event)=>{
-        console.log("espacio");
-    });
-
-    //Pausa
-    this.input.keyboard.on('keyup_ESC', (event)=>{
-        this.game.gamePaused();
-    });
-
-    //Activar/Desactivar sonido
-    this.input.keyboard.on('keyup_BACKSPACE', (event)=>{
-        console.log("atras");
-    });
 }
 
 function update (){
@@ -211,4 +196,22 @@ function update (){
     if (cursors.up.isDown && player.body.touching.down){
         player.setVelocityY(-430);
     }
+
+    //Finalizar partida
+    this.input.keyboard.on('keyup_SPACE', (event)=>{
+        console.log("espacio");
+    });
+
+    //Pausa
+    this.input.keyboard.on('keyup_ESC', (event)=>{
+        this.physics.pause();
+        player.setTint(0xff0000);
+        player.anims.play('turn');
+        gameOver = true;
+    });
+
+    //Activar/Desactivar sonido
+    this.input.keyboard.on('keyup_BACKSPACE', (event)=>{
+        console.log("atras");
+    });
 }
