@@ -27,6 +27,8 @@ function preload (){
     this.load.image('marcador', '../assets/marcador.png');
     this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('p2', '../assets/rojo.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.image('e1', '../assets/p1.png');
+    this.load.image('e2', '../assets/p2.png');
 
     this.load.audio('intro', ['../assets/sounds/intro.mp3']);
     this.load.audio('death', ['../assets/sounds/death.mp3']);
@@ -49,7 +51,7 @@ function create (){
     p1 = "Paco";
     v1 = 3;
     score = 0;
-    
+
     if(b === 0){
         personaje = 'p2';
     }
@@ -130,12 +132,20 @@ function create (){
                 var x = (player.y < 400) ? 500 : 100;
                 child.enableBody(true, child.x, x, true, true);
             });
-        }else if(score % 4 === 0){
+        }else if(score % 5 === 0){
             this.comerFantasma.play();
             var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 500), 'bomb');            
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
             bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        }else if(score % 9 === 0){
+            if(Phaser.Math.Between(0, 1)){
+                console.log('nuevo pacman');
+            }
+        }else if(score % 13 === 0){
+            if(Phaser.Math.Between(0, 1)){
+                console.log('nuevo pacman2');
+            }
         }
     }
 
@@ -166,7 +176,7 @@ function create (){
             bomb.disableBody(true, true);
         }
     }
-    
+
     //Marcadores
     datos = "Jugador: ";
     datos += p1;
