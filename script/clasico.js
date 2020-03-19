@@ -263,6 +263,32 @@ function create (){
     datos += "      Nivel: Clasico"
     var scoreText;
     scoreText = this.add.text(16, 16, datos, { fontSize: '32px', fill: '#ffffff' });
+
+    //Mute desactivado
+    this.mute = false;
+
+    //Finalizar partida
+    this.input.keyboard.on('keyup_SPACE', (event)=>{
+        console.log("espacio");
+    });
+
+    //Pausa
+    this.input.keyboard.on('keyup_ESC', (event)=>{
+        this.physics.pause();
+        player.setTint(0xff0000);
+        player.anims.play('turn');
+        gameOver = true;
+    });
+
+    //Activar/Desactivar sonido
+    this.input.keyboard.on('keyup_BACKSPACE', (event)=>{
+        this.mute = !this.mute;
+        this.intro.mute = this.mute;
+        this.death.mute = this.mute;
+        this.comerFantasma.mute = this.mute;
+        this.comerFruta.mute = this.mute;
+        this.waka.mute = this.mute;
+    });
 }
 
 function update (){
@@ -282,22 +308,4 @@ function update (){
     if (cursors.up.isDown && player.body.touching.down){
         player.setVelocityY(-430);
     }
-
-    //Pausar
-    this.input.keyboard.on('keyup_SPACE', (event)=>{
-        
-    });
-
-    //Finalizar partida
-    this.input.keyboard.on('keyup_ESC', (event)=>{
-        this.physics.pause();
-        player.setTint(0xff0000);
-        player.anims.play('turn');
-        gameOver = true;
-    });
-
-    //Activar/Desactivar sonido
-    this.input.keyboard.on('keyup_BACKSPACE', (event)=>{
-        console.log("atras");
-    });
 }
