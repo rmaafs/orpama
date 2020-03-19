@@ -256,6 +256,18 @@ function create (){
         this.comerFruta.play();
     }
 
+    //Marcadores
+    datos = "Jugador: ";
+    datos += p1;
+    datos += "      Vidas: "
+    datos += v1;
+    datos += "      Puntos:";
+    datos += score;
+    datos += "      Nivel: Clasico"
+    var scoreText;
+    scoreText = this.add.text(16, 16, datos, { fontSize: '32px', fill: '#ffffff' });
+}
+
 
 function update (){
     //Se encarga de mover el personaje
