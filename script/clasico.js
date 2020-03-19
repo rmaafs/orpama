@@ -244,11 +244,13 @@ function create (){
     function hitBo(e1, bombs){
         e1.disableBody(true, true);
         bombs.disableBody(true, true);
+        this.comerFruta.play();
     }
 
     function hitBom(e2, bombs){
         e2.disableBody(true, true);
         bombs.disableBody(true, true);
+        this.comerFruta.play();
     }
 
     //Marcadores
