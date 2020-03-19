@@ -28,9 +28,23 @@ function preload (){
     this.load.image('marcador', '../assets/marcador.png');
     this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('p2', '../assets/rojo.png', { frameWidth: 32, frameHeight: 32 });
+
+    this.load.audio('intro', ['../assets/sounds/intro.mp3']);
+    this.load.audio('death', ['../assets/sounds/death.mp3']);
+    this.load.audio('comer_fantasma', ['../assets/sounds/comer_fantasma.mp3']);
+    this.load.audio('comer_fruta', ['../assets/sounds/comer_fruta.mp3']);
+    this.load.audio('waka', ['../assets/sounds/waka.mp3']);
 }
 
 function create (){
+    this.intro = this.sound.add('intro');
+    this.death = this.sound.add('comer_fruta');
+    this.comerFantasma = this.sound.add('comer_fantasma');
+    this.comerFruta = this.sound.add('comer_fruta');
+    this.waka = this.sound.add('waka');
+
+    this.intro.play();
+
     var personaje = 'p1';b = 7;
     var p = 32;
 
@@ -99,6 +113,8 @@ function create (){
     this.physics.add.overlap(player, stars, collectStar, null, this);
     
     function collectStar (player, star){
+        this.waka.play();
+
         star.disableBody(true, true);
 
         //Sumar puntos
@@ -113,10 +129,12 @@ function create (){
         scoreText.setText(datos);
 
         if (stars.countActive(true) === 0){
+            this.death.play();
             stars.children.iterate(function (child) {
                 child.enableBody(true, child.x, 50, true, true);
             });
         }else if(score % 4 === 0){
+            this.comerFantasma.play();
             var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 550), 'bomb');
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
@@ -130,6 +148,8 @@ function create (){
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
     function hitBomb (player, bomb){
+        this.comerFruta.play();
+
         v1--;
         datos = "Jugador: ";
         datos += p1;
@@ -162,6 +182,21 @@ function create (){
     datos += "      Nivel: Acarde"
     var scoreText;
     scoreText = this.add.text(16, 16, datos, { fontSize: '32px', fill: '#ffffff' });
+
+    //Finalizar partida
+    this.input.keyboard.on('keyup_SPACE', (event)=>{
+        console.log("espacio");
+    });
+
+    //Pausa
+    this.input.keyboard.on('keyup_ESC', (event)=>{
+        this.game.gamePaused();
+    });
+
+    //Activar/Desactivar sonido
+    this.input.keyboard.on('keyup_BACKSPACE', (event)=>{
+        console.log("atras");
+    });
 }
 
 function update (){
