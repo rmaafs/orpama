@@ -28,8 +28,8 @@ function preload (){
     this.load.image('marcador', '../assets/marcador.png');
     this.load.spritesheet('p1', '../assets/naranja.png', { frameWidth: 32, frameHeight: 32 });
     this.load.spritesheet('p2', '../assets/rojo.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.image('star', '../assets/p2.png');
-    this.load.image('star', '../assets/p1.png');
+    this.load.image('e2', '../assets/p2.png');
+    this.load.image('e1', '../assets/p1.png');
 
     this.load.audio('intro', ['../assets/sounds/intro.mp3']);
     this.load.audio('death', ['../assets/sounds/death.mp3']);
@@ -113,9 +113,54 @@ function create (){
         setXY: { x: 12, y: 0, stepX: 70 }
     });
 
+    //Crea el grupo de pacman
+    e1 = this.physics.add.group({
+        key: 'e1',
+        repeat: 0,
+        setXY: { x: Phaser.Math.Between(50, 1300), y: Phaser.Math.Between(100, 450), stepX: 70 }
+    });
+
+    e2 = this.physics.add.group({
+        key: 'e2',
+        repeat: 0,
+        setXY: { x: Phaser.Math.Between(50, 1300), y: Phaser.Math.Between(100, 450), stepX: 70 }
+    });
+
     //Configura las colisiones de las estrellas
     this.physics.add.collider(stars, platforms);
+    this.physics.add.collider(e1, platforms);
+    this.physics.add.collider(e2, platforms);
     this.physics.add.overlap(player, stars, collectStar, null, this);
+    this.physics.add.overlap(player, e1, sE1, null, this);
+    this.physics.add.overlap(player, e2, sE2, null, this);
+
+    function sE1(player, e1){
+        e1.disableBody(true, true);
+        this.waka.play();
+        score += 10;
+        datos = "Jugador: ";
+        datos += p1;
+        datos += "      Vidas: "
+        datos += v1;
+        datos += "      Puntos:";
+        datos += score;
+        datos += "      Nivel: Acarde";
+        scoreText.setText(datos);
+    }
+
+    function sE2(player, e2){
+        e2.disableBody(true, true);
+        this.waka.play();
+        score += 15;
+        datos = "Jugador: ";
+        datos += p1;
+        datos += "      Vidas: "
+        datos += v1;
+        datos += "      Puntos:";
+        datos += score;
+        datos += "      Nivel: Acarde";
+        scoreText.setText(datos);
+    }
     
     function collectStar (player, star){
         this.waka.play();
@@ -145,13 +190,27 @@ function create (){
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
             bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-        }else if(score % 9 === 0){
+        }else if(score % 3 === 0){
             if(Phaser.Math.Between(0, 1)){
-                console.log('nuevo pacman');
+                if (e1.countActive(true) === 0){
+                    this.death.play();
+                    e1.children.iterate(function (child) {
+                        var x = (player.y < 400) ? 300 : 50;
+                        var y = (player.x < 600) ? 850 : 250;
+                        child.enableBody(true, x, y, true, true);
+                    });
+                }
             }
-        }else if(score % 13 === 0){
+        }else if(score % 4=== 0){
             if(Phaser.Math.Between(0, 1)){
-                console.log('nuevo pacman2');
+                if (e2.countActive(true) === 0){
+                    this.death.play();
+                    e2.children.iterate(function (child) {
+                        var x = (player.y < 400) ? 300 : 50;
+                        var y = (player.x < 600) ? 850 : 250;
+                        child.enableBody(true, x, y, true, true);
+                    });
+                }
             }
         }
     }
