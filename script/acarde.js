@@ -239,7 +239,20 @@ function create (){
         }else{
             bomb.disableBody(true, true);
         }
-   }    
+    }    
+
+    this.physics.add.collider(e1, bombs, hitBo, null, this);
+    this.physics.add.collider(e2, bombs, hitBom, null, this);
+
+    function hitBo(e1, bombs){
+        e1.disableBody(true, true);
+        bombs.disableBody(true, true);
+    }
+
+    function hitBom(e2, bombs){
+        e2.disableBody(true, true);
+        bombs.disableBody(true, true);
+    }
     //Marcadores
     datos = "Jugador: ";
     datos += p1;

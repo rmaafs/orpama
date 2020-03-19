@@ -18,6 +18,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 var teclas;
+var pa = 0;
 
 function preload (){
     this.load.image('sky', '../assets/sky.png');
@@ -127,6 +128,7 @@ function create (){
     this.physics.add.collider(e2, platforms);
     this.physics.add.overlap(player, e1, sE1, null, this);
     this.physics.add.overlap(player, e2, sE2, null, this);
+    this.physics.add.collider(stars, platforms);
 
     function sE1(player, e1){
         e1.disableBody(true, true);
@@ -236,6 +238,19 @@ function create (){
         }
     }
 
+    this.physics.add.collider(e1, bombs, hitBo, null, this);
+    this.physics.add.collider(e2, bombs, hitBom, null, this);
+
+    function hitBo(e1, bombs){
+        e1.disableBody(true, true);
+        bombs.disableBody(true, true);
+    }
+
+    function hitBom(e2, bombs){
+        e2.disableBody(true, true);
+        bombs.disableBody(true, true);
+    }
+
     //Marcadores
     datos = "Jugador: ";
     datos += p1;
@@ -266,12 +281,12 @@ function update (){
         player.setVelocityY(-430);
     }
 
-    //Finalizar partida
+    //Pausar
     this.input.keyboard.on('keyup_SPACE', (event)=>{
-        console.log("espacio");
+        
     });
 
-    //Pausa
+    //Finalizar partida
     this.input.keyboard.on('keyup_ESC', (event)=>{
         this.physics.pause();
         player.setTint(0xff0000);
