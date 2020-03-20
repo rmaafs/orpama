@@ -36,7 +36,7 @@ class SceneClasico extends Phaser.Scene {
         var personaje = 'p1';
         var b = 0;
         var p = 32;
-        var p1 = "Paco";
+        var p1 = "Rodrigo";
         var v1 = 3;
         var score = 0;
         var gameOver = false;
@@ -222,6 +222,7 @@ class SceneClasico extends Phaser.Scene {
                 player.setTint(0xff0000);
                 player.anims.play('turn');
                 gameOver = true;
+                save(p1, score);
                 this.scene.start('SceneGameOver');
             } else {
                 bomb.disableBody(true, true);
@@ -298,6 +299,22 @@ class SceneClasico extends Phaser.Scene {
         if (cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-430);
         }
+    }
+    
+    save(p1, score){
+        var records = localStorage.getItem('records');
+        records = JSON.parse(records);
+
+        if(records == undefined){
+            records = [];
+        }
+        var re = JSON.stringify({
+            Jugador:p1,
+            Puntos:score
+        });
+
+        records.push(re);
+        localStorage.setItem("records", JSON.stringify(records));
     }
 }
 
@@ -527,6 +544,8 @@ class SceneArcade extends Phaser.Scene {
                 player.setTint(0xff0000);
                 player.anims.play('turn');
                 gameOver = true;
+                save(p1, score);
+                this.scene.start('SceneGameOver');
             } else {
                 bomb.disableBody(true, true);
             }
@@ -603,6 +622,22 @@ class SceneArcade extends Phaser.Scene {
         if (cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-430);
         }
+    }
+    
+    save(p1, score){
+        var records = localStorage.getItem('records');
+        records = JSON.parse(records);
+
+        if(records == undefined){
+            records = [];
+        }
+        var re = JSON.stringify({
+            Jugador:p1,
+            Puntos:score
+        });
+
+        records.push(re);
+        localStorage.setItem("records", JSON.stringify(records));
     }
 }
 
