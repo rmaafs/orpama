@@ -475,7 +475,6 @@ class SceneArcade extends Phaser.Scene {
                     var x = (player.y < 400) ? 300 : 50;
                     child.enableBody(true, child.x, x, true, true);
                 });
-                this.scene.start('SceneGameOver');
             } else if (score % 5 === 0) {
                 this.comerFantasma.play();
                 var bomb = bombs.create(Phaser.Math.Between(50, 1300), Phaser.Math.Between(50, 500), 'bomb');
