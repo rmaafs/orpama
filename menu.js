@@ -228,6 +228,22 @@ class SceneClasico extends Phaser.Scene {
                 bomb.disableBody(true, true);
             }
         }
+        
+        function save(p1, score){
+            var records = localStorage.getItem('records');
+            records = JSON.parse(records);
+
+            if(records == undefined){
+                records = [];
+            }
+            var re = JSON.stringify({
+                Jugador:p1,
+                Puntos:score
+            });
+
+            records.push(re);
+            localStorage.setItem("records", JSON.stringify(records));
+        }
 
         this.physics.add.collider(e1, bombs, hitBo, null, this);
         this.physics.add.collider(e2, bombs, hitBom, null, this);
@@ -299,22 +315,6 @@ class SceneClasico extends Phaser.Scene {
         if (cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-430);
         }
-    }
-    
-    save(p1, score){
-        var records = localStorage.getItem('records');
-        records = JSON.parse(records);
-
-        if(records == undefined){
-            records = [];
-        }
-        var re = JSON.stringify({
-            Jugador:p1,
-            Puntos:score
-        });
-
-        records.push(re);
-        localStorage.setItem("records", JSON.stringify(records));
     }
 }
 
@@ -550,6 +550,22 @@ class SceneArcade extends Phaser.Scene {
                 bomb.disableBody(true, true);
             }
         }
+        
+        function save(p1, score){
+            var records = localStorage.getItem('records');
+            records = JSON.parse(records);
+
+            if(records == undefined){
+                records = [];
+            }
+            var re = JSON.stringify({
+                Jugador:p1,
+                Puntos:score
+            });
+
+            records.push(re);
+            localStorage.setItem("records", JSON.stringify(records));
+        }
 
         this.physics.add.collider(e1, bombs, hitBo, null, this);
         this.physics.add.collider(e2, bombs, hitBom, null, this);
@@ -622,22 +638,6 @@ class SceneArcade extends Phaser.Scene {
         if (cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-430);
         }
-    }
-    
-    save(p1, score){
-        var records = localStorage.getItem('records');
-        records = JSON.parse(records);
-
-        if(records == undefined){
-            records = [];
-        }
-        var re = JSON.stringify({
-            Jugador:p1,
-            Puntos:score
-        });
-
-        records.push(re);
-        localStorage.setItem("records", JSON.stringify(records));
     }
 }
 
