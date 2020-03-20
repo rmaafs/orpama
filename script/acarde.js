@@ -30,6 +30,7 @@ function preload (){
     this.load.spritesheet('p2', '../assets/rojo.png', { frameWidth: 32, frameHeight: 32 });
     this.load.image('e2', '../assets/p2.png');
     this.load.image('e1', '../assets/p1.png');
+    this.load.image('game', '../assets/game-over.png');
 
     this.load.audio('intro', ['../assets/sounds/intro.mp3']);
     this.load.audio('death', ['../assets/sounds/death.mp3']);
@@ -236,6 +237,7 @@ function create (){
             player.setTint(0xff0000);
             player.anims.play('turn');
             gameOver = true;
+            this.add.image(675, 350, 'game');
             save(p1, score);
         }else{
             bomb.disableBody(true, true);
