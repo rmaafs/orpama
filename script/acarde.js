@@ -275,13 +275,19 @@ function create (){
     this.mute = false;
     //Finalizar partida
     this.input.keyboard.on('keyup_SPACE', (event)=>{
-        console.log("caca");
+        this.physics.pause();
+        player.setTint(0xff0000);
+        player.anims.play('turn');
+        gameOver = true;
+        this.add.image(675, 350, 'game');
+        save(p1, score);
     });
 
     //Pausa
     this.input.keyboard.on('keyup_ESC', (event)=>{
         this.physics.pause();
         this.add.image(675, 350, 'pause');
+        save(p1, score);
     });
 
     //Activar/Desactivar sonido
