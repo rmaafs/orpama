@@ -236,6 +236,7 @@ function create (){
             player.setTint(0xff0000);
             player.anims.play('turn');
             gameOver = true;
+            save(p1, score);
         }else{
             bomb.disableBody(true, true);
         }
@@ -312,4 +313,20 @@ function update (){
     if (cursors.up.isDown && player.body.touching.down){
         player.setVelocityY(-430);
     }
+}
+
+function save(p1, score){
+    var records = localStorage.getItem('records');
+    records = JSON.parse(records);
+            
+    if(records == undefined){
+        records = [];
+    }
+    var re = JSON.stringify({
+        Jugador:p1,
+        Puntos:score
+    });
+        
+    records.push(re);
+    localStorage.setItem("records", JSON.stringify(records));
 }
