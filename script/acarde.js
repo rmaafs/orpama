@@ -31,6 +31,7 @@ function preload (){
     this.load.image('e2', '../assets/p2.png');
     this.load.image('e1', '../assets/p1.png');
     this.load.image('game', '../assets/game-over.png');
+    this.load.image('pause', '../assets/pause.png');
 
     this.load.audio('intro', ['../assets/sounds/intro.mp3']);
     this.load.audio('death', ['../assets/sounds/death.mp3']);
@@ -272,18 +273,15 @@ function create (){
 
     //Mute desactivado
     this.mute = false;
-
     //Finalizar partida
     this.input.keyboard.on('keyup_SPACE', (event)=>{
-        console.log("espacio");
+        console.log("caca");
     });
 
     //Pausa
     this.input.keyboard.on('keyup_ESC', (event)=>{
         this.physics.pause();
-        player.setTint(0xff0000);
-        player.anims.play('turn');
-        gameOver = true;
+        this.add.image(675, 350, 'pause');
     });
 
     //Activar/Desactivar sonido
