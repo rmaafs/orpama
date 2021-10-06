@@ -1,3 +1,6 @@
+var res = prompt('Ingresa tu nombre: ', 'Paco');
+console.log(res);
+
 class SceneClasico extends Phaser.Scene {
 
     constructor() {
@@ -17,7 +20,7 @@ class SceneClasico extends Phaser.Scene {
         this.load.image('e1', '../assets/p1.png');
         this.load.image('e2', '../assets/p2.png');
 
-        this.load.audio('intro', ['../assets/sounds/intro.mp3']);
+        //this.load.audio('intro', ['../assets/sounds/intro.mp3']);
         this.load.audio('death', ['../assets/sounds/death.mp3']);
         this.load.audio('comer_fantasma', ['../assets/sounds/comer_fantasma.mp3']);
         this.load.audio('comer_fruta', ['../assets/sounds/comer_fruta.mp3']);
@@ -25,18 +28,18 @@ class SceneClasico extends Phaser.Scene {
     }
 
     create() {
-        this.intro = this.sound.add('intro');
+        //this.intro = this.sound.add('intro');
         this.death = this.sound.add('comer_fruta');
         this.comerFantasma = this.sound.add('comer_fantasma');
         this.comerFruta = this.sound.add('comer_fruta');
         this.waka = this.sound.add('waka');
 
-        this.intro.play();
+        //this.intro.play();
 
         var personaje = 'p1';
         var b = 0;
         var p = 32;
-        var p1 = "Rodrigo";
+        var p1 = res;
         var v1 = 3;
         var score = 0;
         var gameOver = false;
@@ -336,7 +339,7 @@ class SceneArcade extends Phaser.Scene {
         this.load.image('e2', '../assets/p2.png');
         this.load.image('e1', '../assets/p1.png');
 
-        this.load.audio('intro', ['../assets/sounds/intro.mp3']);
+        //this.load.audio('intro', ['../assets/sounds/intro.mp3']);
         this.load.audio('death', ['../assets/sounds/death.mp3']);
         this.load.audio('comer_fantasma', ['../assets/sounds/comer_fantasma.mp3']);
         this.load.audio('comer_fruta', ['../assets/sounds/comer_fruta.mp3']);
@@ -344,18 +347,18 @@ class SceneArcade extends Phaser.Scene {
     }
 
     create() {
-        this.intro = this.sound.add('intro');
+        //this.intro = this.sound.add('intro');
         this.death = this.sound.add('comer_fruta');
         this.comerFantasma = this.sound.add('comer_fantasma');
         this.comerFruta = this.sound.add('comer_fruta');
         this.waka = this.sound.add('waka');
 
-        this.intro.play();
+        //this.intro.play();
 
         var personaje = 'p1';
         var b = 7;
         var p = 32;
-        var p1 = "Paco";
+        var p1 = res;
         var v1 = 3;
         var score = 0;
         var gameOver = false;
@@ -641,8 +644,6 @@ class SceneArcade extends Phaser.Scene {
     }
 }
 
-
-
 class SceneMenu extends Phaser.Scene {
 
     constructor() {
@@ -668,13 +669,13 @@ class SceneMenu extends Phaser.Scene {
         this.texto.on('pointerdown', () => {
             this.scene.start('SceneSelector');
         });
-        this.texto = this.add.text(200, 475, 'RECORDS', {
+        /*this.texto = this.add.text(200, 475, 'RECORDS', {
             fontSize: '40px',
             fill: '#ffffff'
         }).setInteractive();
         this.texto.on('pointerdown', () => {
             alert("Coming soon in the new season :3");
-        });
+        });*/
 
     }
 }
